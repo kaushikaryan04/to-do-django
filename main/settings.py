@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'api',
+    'userauth',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -110,6 +114,20 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+#CUSTOM STUFF
+AUTH_USER_MODEL = "userauth.User"
+
+CORS_ALLOWED_ORIGIN = [  # FOR REACT TO ACCESS THIS API
+    "http://localhost:3000"
+]
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES':[
+        'rest_framework.permissions.'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ]
+}
 
 
 # Static files (CSS, JavaScript, Images)
