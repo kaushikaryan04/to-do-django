@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser , PermissionsMixin
 from django.utils import timezone
 from .manager import UserManager
 from main.settings import AUTH_USER_MODEL
-
+from django.utils.translation import gettext_lazy as _
 
 
 class ToDo(models.Model):
@@ -24,15 +24,15 @@ class ToDo(models.Model):
 
 class User(AbstractBaseUser , PermissionsMixin ):
     username = models.CharField(max_length=20,null = False , blank = False , unique=True)
-    email = models.EmailField(null = False , blank =False , unique = True)
+    email = models.EmailField(_('email address') ,null = False , blank =False , unique = True)
     name = models.CharField(null = False , blank = False , max_length=20)
     date_joined = models.DateTimeField(default=timezone.now)
     is_staff = models.BooleanField(default = False)
-    is_active = models.BooleanField(default= False)
+    is_active = models.BooleanField(default= True)
 
+    objects = UserManager()
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username' ,'name']
-    objects = UserManager()
 
     def __str__(self):
         return self.name
